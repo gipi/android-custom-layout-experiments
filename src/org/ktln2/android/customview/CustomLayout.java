@@ -26,10 +26,30 @@ public class CustomLayout extends ViewGroup {
         android.util.Log.d(TAG, "CustomLayout(context, attrs)");
     }
 
+    /*
+     * In the onMeasure() the layout decide its own dimensions and call
+     * the measure step for all of its children.
+     *
+     * One important method is
+     *
+     *  static ViewGroup.getChildMeasureSpec(int spec, int padding, int childDimension) 
+     *
+     * where childDimension can be a size or one of MATCH_PARENT, FILL_PARENT and WRAP_CONTENT.
+     *
+     * The method returns a MeasureSpec good to be used with the given children.
+     */
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         android.util.Log.d(TAG, "onMeasure()");
         measureChildren(widthMeasureSpec, heightMeasureSpec);
+
+        // loop over the children using their layout parameters to arrange them
+        for (int cycle = 0, nChilds = getChildCount() ; cycle < nChilds ; cycle++) {
+            View child = getChildAt(cycle);
+            ViewGroup.LayoutParams childLp = child.getLayoutParams();
+        }
+
+        // as final step call the function below to set the dimension for real
         setMeasuredDimension(widthMeasureSpec, heightMeasureSpec);
     }
 
