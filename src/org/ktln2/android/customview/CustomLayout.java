@@ -65,8 +65,9 @@ public class CustomLayout extends ViewGroup {
         for (int cycle = 0, nChild = getChildCount() ; cycle < nChild ; cycle++) {
             View child = getChildAt(cycle);
             int childHeight = child.getMeasuredHeight();
+            int childWidth = child.getMeasuredWidth();
 
-            child.layout(left, top, right, top + childHeight);
+            child.layout(left, top, left + childWidth, top + childHeight);
 
             top += childHeight;
         }
